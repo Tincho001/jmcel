@@ -258,64 +258,299 @@
 // }
 
 // export default App;
+
+//*ordenado por categoria y productos alfabeticamente SIRVE
+// import React, { useState, useEffect } from 'react';
+// import axios from 'axios';
+
+// function App() {
+//   const [items, setItems] = useState([]);
+//   const [page, setPage] = useState(1);
+//   const perPage = 50; // Cambiar esto a 100 si quieres mostrar 100 productos por página
+
+//   useEffect(() => {
+//     const fetchData = async () => {
+//       try {
+//         const response = await axios.get('http://localhost:3000/api/items', {
+//           params: {
+//             offset: (page - 1) * perPage,
+//             limit: perPage,
+//             idListaPrecio: 27331,
+//             idRubro: 115155 // ID del rubro específico
+//           }
+//         });
+//         console.log('Response:', response.data); // Log de la respuesta
+//         setItems(response.data.results);
+//       } catch (error) {
+//         console.error('Error fetching data:', error);
+//       }
+//     };
+
+//     fetchData();
+//   }, [page]); // Se ejecuta cuando cambia la página
+
+//   const handleNextPage = () => {
+//     setPage(page + 1);
+//   };
+
+//   const handlePrevPage = () => {
+//     setPage(page - 1);
+//   };
+
+//   return (
+//     <div>
+//       <h1>Lista de Items</h1>
+//       <ul>
+//         {items.map(item => {
+//           console.log('Item:', item); // Log de cada item
+//           const stockAvailable = item.stock && item.stock.length > 0 ? parseInt(item.stock[0].ctd_disponible) : 0;
+//           console.log('Stock Available:', stockAvailable); // Log del stock disponible
+//           return (
+//             <li key={item.cod_item}>
+//               {item.item} - 
+//               {stockAvailable <= 0 ? (
+//                 <span style={{ color: 'red' }}>SIN STOCK</span>
+//               ) : (
+//                 <span style={{ color: 'green' }}>HAY STOCK</span>
+//               )}
+//             </li>
+//           );
+//         })}
+//       </ul>
+//       <div>
+//         <button onClick={handlePrevPage} disabled={page === 1}>Anterior</button>
+//         <button onClick={handleNextPage}>Siguiente</button>
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default App;
+
+
+
+//*CON PRECIOS
+// import React, { useState, useEffect } from 'react';
+// import axios from 'axios';
+
+// function App() {
+//   const [items, setItems] = useState([]);
+//   const [page, setPage] = useState(1);
+//   const perPage = 50; // Cambiar esto a 100 si quieres mostrar 100 productos por página
+
+//   useEffect(() => {
+//     const fetchData = async () => {
+//       try {
+//         const response = await axios.get('http://localhost:3000/api/items', {
+//           params: {
+//             offset: (page - 1) * perPage,
+//             limit: perPage,
+//             idListaPrecio: 27331,
+//             idRubro: 115155 // ID del rubro específico
+//           }
+//         });
+//         console.log('Response:', response.data); // Log de la respuesta
+//         setItems(response.data.results);
+//       } catch (error) {
+//         console.error('Error fetching data:', error);
+//       }
+//     };
+
+//     fetchData();
+//   }, [page]); // Se ejecuta cuando cambia la página
+
+//   const handleNextPage = () => {
+//     setPage(page + 1);
+//   };
+
+//   const handlePrevPage = () => {
+//     setPage(page - 1);
+//   };
+
+//   return (
+//     <div>
+//       <h1>Lista de Items</h1>
+//       <ul>
+//         {items.map(item => {
+//           console.log('Item:', item); // Log de cada item
+//           const stockAvailable = item.stock && item.stock.length > 0 ? parseInt(item.stock[0].ctd_disponible) : 0;
+//           console.log('Stock Available:', stockAvailable); // Log del stock disponible
+//           const price = item.precios && item.precios.length > 0 ? parseFloat(item.precios[0].precio) : 0;
+//           console.log('Price:', price); // Log del precio
+//           return (
+//             <li key={item.cod_item}>
+//               {item.item} - 
+//               {stockAvailable <= 0 ? (
+//                 <span style={{ color: 'red' }}>SIN STOCK</span>
+//               ) : (
+//                 <span style={{ color: 'green' }}>HAY STOCK</span>
+//               )} -
+//               ${price.toFixed(2)} {/* Mostrar precio con 2 decimales */}
+//             </li>
+//           );
+//         })}
+//       </ul>
+//       <div>
+//         <button onClick={handlePrevPage} disabled={page === 1}>Anterior</button>
+//         <button onClick={handleNextPage}>Siguiente</button>
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default App;
+
+//*PAGINACION CON NUMEROS
+// import React, { useState, useEffect } from 'react';
+// import axios from 'axios';
+
+// function App() {
+//   const [items, setItems] = useState([]);
+//   const [page, setPage] = useState(1);
+//   const [totalPages, setTotalPages] = useState(1);
+//   const perPage = 50; // Cambiar esto a 100 si quieres mostrar 100 productos por página
+
+//   useEffect(() => {
+//     const fetchData = async () => {
+//       try {
+//         const response = await axios.get('http://localhost:3000/api/items', {
+//           params: {
+//             offset: (page - 1) * perPage,
+//             limit: perPage,
+//             idListaPrecio: 27331,
+//             idRubro: 115155 // ID del rubro específico
+//           }
+//         });
+//         console.log('Response:', response.data); // Log de la respuesta
+//         setItems(response.data.results);
+//         setTotalPages(Math.ceil(response.data.paging.total / perPage)); // Calcular el total de páginas
+//       } catch (error) {
+//         console.error('Error fetching data:', error);
+//       }
+//     };
+
+//     fetchData();
+//   }, [page]); // Se ejecuta cuando cambia la página
+
+//   const handlePageChange = (pageNumber) => {
+//     setPage(pageNumber);
+//   };
+
+//   const pageNumbers = [];
+//   for (let i = 1; i <= totalPages; i++) {
+//     pageNumbers.push(i);
+//   }
+
+//   return (
+//     <div>
+//       <h1>Lista de Items</h1>
+//       <ul>
+//         {items.map(item => {
+//           console.log('Item:', item); // Log de cada item
+//           const stockAvailable = item.stock && item.stock.length > 0 ? parseInt(item.stock[0].ctd_disponible) : 0;
+//           console.log('Stock Available:', stockAvailable); // Log del stock disponible
+//           const price = item.precios && item.precios.length > 0 ? parseFloat(item.precios[0].precio) : 0;
+//           console.log('Price:', price); // Log del precio
+//           return (
+//             <li key={item.cod_item}>
+//               {item.item} - 
+//               {stockAvailable <= 0 ? (
+//                 <span style={{ color: 'red' }}>SIN STOCK</span>
+//               ) : (
+//                 <span style={{ color: 'green' }}>HAY STOCK</span>
+//               )} -
+//               ${price.toFixed(2)} {/* Mostrar precio con 2 decimales */}
+//             </li>
+//           );
+//         })}
+//       </ul>
+//       <div>
+//         {pageNumbers.map(number => (
+//           <button key={number} onClick={() => handlePageChange(number)} disabled={number === page}>
+//             {number}
+//           </button>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default App;
+
+//*funciona paginacion
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function App() {
   const [items, setItems] = useState([]);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const perPage = 50; // Cambiar esto a 100 si quieres mostrar 100 productos por página
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let allItems = [];
-        let offset = 0;
-        const limit = 50; // Máximo de resultados por solicitud
-
-        // Realizar múltiples solicitudes hasta que se recuperen todos los resultados
-        while (true) {
-          const response = await axios.get('http://localhost:3000/api/items', {
-            params: {
-              offset: offset,
-              limit: limit,
-              idListaPrecio: 27331,
-              idRubro: 115155 // ID del rubro específico
-            }
-          });
-          const results = response.data.results;
-          allItems = [...allItems, ...results];
-          if (results.length < limit) {
-            // Si la última solicitud no alcanza el límite, se recuperaron todos los resultados
-            break;
+        const response = await axios.get('http://localhost:3000/api/items', {
+          params: {
+            offset: (page - 1) * perPage,
+            limit: perPage,
+            idListaPrecio: 27331,
+            idRubro: 115155 // ID del rubro específico
           }
-          offset += limit;
-        }
-
-        setItems(allItems);
+        });
+        console.log('Response:', response.data); // Log de la respuesta
+        setItems(response.data.results);
+        setTotalPages(Math.ceil(response.data.paging.total / perPage)); // Calcular el total de páginas
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
 
     fetchData();
-  }, []); // Se ejecuta solo una vez al montar el componente
+  }, [page]); // Se ejecuta cuando cambia la página
+
+  const handlePageChange = (pageNumber) => {
+    setPage(pageNumber);
+  };
+
+  const pageNumbers = [];
+  for (let i = 1; i <= totalPages; i++) {
+    pageNumbers.push(i);
+  }
 
   return (
     <div>
       <h1>Lista de Items</h1>
       <ul>
-        {items.map(item => (
-          <li key={item.cod_item}>
-            {item.item} - 
-            {item.stock && item.stock.length > 0 ? (
-              <span style={{ color: item.stock[0].ctd_disponible <= 0 ? 'red' : 'green' }}>
-                {item.stock[0].ctd_disponible <= 0 ? 'SIN STOCK' : 'HAY STOCK'}
-              </span>
-            ) : (
-              <span style={{ color: 'red' }}>SIN STOCK</span>
-            )}
-          </li>
-        ))}
+        {items.map(item => {
+          console.log('Item:', item); // Log de cada item
+          const stockAvailable = item.stock && item.stock.length > 0 ? parseInt(item.stock[0].ctd_disponible) : 0;
+          console.log('Stock Available:', stockAvailable); // Log del stock disponible
+          const price = item.precios && item.precios.length > 0 ? parseFloat(item.precios[0].precio) : 0;
+          console.log('Price:', price); // Log del precio
+          const subrubro = item.sub_rubro && item.sub_rubro.nombre ? item.sub_rubro.nombre : 'N/A';
+          console.log('Subrubro:', subrubro); // Log del subrubro
+          return (
+            <li key={item.cod_item}>
+              {item.item} - 
+              {stockAvailable <= 0 ? (
+                <span style={{ color: 'red' }}>SIN STOCK</span>
+              ) : (
+                <span style={{ color: 'green' }}>HAY STOCK</span>
+              )} -
+              ${price.toFixed(2)} - 
+              {subrubro}
+            </li>
+          );
+        })}
       </ul>
+      <div>
+        {pageNumbers.map(number => (
+          <button key={number} onClick={() => handlePageChange(number)} disabled={number === page}>
+            {number}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }
